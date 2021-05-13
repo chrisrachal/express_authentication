@@ -13,7 +13,7 @@ console.log(SECRET_SESSION);
 
 app.set('view engine', 'ejs');
 
-app.use(passport.initialized());
+app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(require('morgan')('dev'));
