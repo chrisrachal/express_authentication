@@ -11,12 +11,21 @@ router.get('/login', (req, res) => {
   res.render('auth/login');
 });
 
+
+router.get('/logout', (req, res) => {
+  req.logOut(); // logs the user out of the session
+  req.flash('success', 'Logging out... See you next time!');
+  res.redirect('/');
+});
+
+
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/auth/login',
   successFlash: 'Welcome back ...',
   failureFlash: 'Either email or password is incorrect' 
 }));
+
 
 router.post('/signup', async (req, res) => {
   // we now have access to the user info (req.body);
