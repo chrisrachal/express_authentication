@@ -13,8 +13,8 @@ console.log(SECRET_SESSION);
 
 app.set('view engine', 'ejs');
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
@@ -29,6 +29,9 @@ app.use(session({
 
 app.use(flash());            // flash middleware
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use((req, res, next) => {
   console.log(res.locals);
   res.locals.alerts = req.flash();
@@ -42,9 +45,9 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/profile', (req, res) => {
-  res.render('profile');
-});
+// app.get('/profile', (req, res) => {
+//   res.render('profile');
+// });
 
 app.use('/auth', require('./controllers/auth'));
 
