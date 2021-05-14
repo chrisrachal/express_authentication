@@ -32,7 +32,7 @@ app.use(flash());            // flash middleware
 app.use((req, res, next) => {
   console.log(res.locals);
   res.locals.alerts = req.flash();
-  res.locals.currentUser = req.user;
+  res.locals.currentUser = req.user; // current user on layout page
   next();
 });
 
@@ -47,6 +47,13 @@ app.get('/profile', (req, res) => {
 });
 
 app.use('/auth', require('./controllers/auth'));
+
+// Add this below /auth controllers
+app.get('/profile', isLoggedIn, (req, res) => {
+  const { id, name, email } = req.user.get(); 
+  res.render('profile', { id, name, email });
+});
+
 
 
 const PORT = process.env.PORT || 3000;
